@@ -45,6 +45,17 @@ public class Board {
     }
 
 
+    // Draws the characters that are within the board variable.
+    public void drawBoard() {
+        for (int i=0; i<this.getBoard().length; i++) {
+            for (int j=0;j<this.getBoard()[i].length; j++) {
+                System.out.println(this.getBoard()[i][j]);
+            }
+        }
+
+    }
+
+
 
 
 }
