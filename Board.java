@@ -181,6 +181,11 @@ public class Board {
      * begins in the top left corner of the object.
      */
     public void setObject(char[][] characters, int row, int column) {
+        for (int i = 0; i <characters.length; i++) {
+            for (int j=0; j<characters.length; j++) {
+                this.setPixel(characters[i][j], i+row, j+column);
+            }
+        }
 
     }
 
