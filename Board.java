@@ -20,11 +20,8 @@ public class Board {
     Board (int width, int height, char blankPixel) {
         this.setWidth(width);
         this.setHeight(height);
+        this.setBlankPixel(blankPixel);
         this.setBoard(new char[height][width]);
-
-
-
-
     }
 
 
@@ -57,14 +54,27 @@ public class Board {
         this.blankPixel = blankPixel;
     }
 
-
-   /*
-
-   */
-    private void setBoard(char[][] board) {
+    // TODO: add description
+    public void setBoard() {
+        for (int i=0; i<this.getBoard().length; i++) {
+            for (int j=0;j<this.getBoard()[i].length; j++) {
+                this.setPixel(this.getBlankPixel(), i, j);
+            }
+        } 
+    }
+    // TODO: add description
+    public void setBoard(char[][] board) {
         for (int i=0; i<this.getBoard().length; i++) {
             for (int j=0;j<this.getBoard()[i].length; j++) {
                 this.setPixel(board[i][j], i, j);
+            }
+        }
+    }
+
+    public void setBoard(char[][] board, char pixel) {
+        for (int i=0; i<this.getBoard().length; i++) {
+            for (int j=0;j<this.getBoard()[i].length; j++) {
+                this.setPixel(pixel, i, j);
             }
         }
     }
