@@ -1,7 +1,7 @@
 /*
 Author: Paul Molczanski
 Date: November 15, 2021 8:57 PM
-Description: This class is responsible for drawing to the screen and contains different helper methods to simplfy drawing.
+Description: This class is responsible for drawing to the screen and contains different helper methods to simplify drawing.
 **/
 
 public class Board {
@@ -13,10 +13,13 @@ public class Board {
     private String[][] board;
 
     Board (int width, int height) {
-
+        this.setWidth(width);
+        this.setHeight(height);
+        this.setBoard(new String[height][width]);
     }
 
 
+    // *********** Setter and Getter methods ***********
     public int getWidth() {
         return this.width;
     }
@@ -32,6 +35,15 @@ public class Board {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    public String[][] getBoard() {
+        return this.board;
+    }
+
+    public void setBoard(String[][] board) {
+        this.board = board;
+    }
+
 
 
 
