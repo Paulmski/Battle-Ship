@@ -110,7 +110,7 @@ public class Board {
      */
     public void setObject(String string, int row, int column, int orientation) {
         for (int i = 0; i < string.length(); i++) {
-            if (Character.isWhitespace(string.charAt(i))) {
+            if (string.charAt(i) == '\0') {
                 continue;
             }
             switch (orientation) {
@@ -140,7 +140,7 @@ public class Board {
     public void setObject(char[] characters, int row, int column, int orientation) {
 
         for (int i = 0; i < characters.length; i++) {
-            if (Character.isWhitespace(characters[i])) {
+            if (characters[i] == '\0') {
                 continue;
             }
             switch (orientation) {
