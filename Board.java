@@ -11,11 +11,17 @@ public class Board {
     private int height;
     // A 2D array which holds the value of each "pixel" that is being drawn on the board which is being presented to the user.
     private char[][] board;
+    // The default pixel value if no other value has been assigned.
+    private char blankPixel;
 
-    Board (int width, int height) {
+    Board (int width, int height, char blankPixel) {
         this.setWidth(width);
         this.setHeight(height);
-        this.setBoard(new char[height][width]);
+        this.setBoard(new char[height][width], blankPixel);
+
+
+
+
     }
 
 
@@ -39,19 +45,39 @@ public class Board {
     public char[][] getBoard() {
         return this.board;
     }
-    /* This is private because there is no good reason for the entire board to be modified outside of the scope of the Board class. If the board needs to be modified the drawPixel() method can be used.
-    */
+
+    public char getBlankPixel() {
+        return this.blankPixel;
+    }
+
+    public void setBlankPixel(char blankPixel) {
+        this.blankPixel = blankPixel;
+    }
+
+
+   /*
+   To avoid unexpected behaviour this method ensures the array is 
+   */
     private void setBoard(char[][] board) {
-        this.board = board;
+        for (int i=0; i<this.getBoard().length; i++) {
+            for (int j=0;j<this.getBoard()[i].length; j++) {
+                this.setPixel(this.getBlankPixel(), i, j);
+            }
+        }
     }
 
 
 
+    // ************ Class specific methods ***********************
 
-    // Set the value of an individual pixel
+    // Set the value of an individual pixel (Character)
+    public void setPixel(char pixel, int x, int y) {
+        this.board[y][x] = pixel;
+    }
 
 
     // Draws the characters that are within the board variable.
+    // Careful if there is more than one board being presented to the user this method will override other boards.
     public void drawBoard() {
         for (int i=0; i<this.getBoard().length; i++) {
             for (int j=0;j<this.getBoard()[i].length; j++) {
