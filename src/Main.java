@@ -1,4 +1,3 @@
-package src;
 /**
  * @author Paul Molczanski
  * @email paulmski@gmail.com
@@ -15,7 +14,7 @@ public class Main {
         board.setPixel('X', 1, 0);
         Board mainBoard = new Board(40,40, ' ');
         mainBoard.setObject(board.getBoard(), 10, 10);
-        mainBoard.setObject("Hello user!", 9, 10, 1);
+        mainBoard.setObject("Hello", 30, 10, 3);
         mainBoard.drawBoard();
     }
 }

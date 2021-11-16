@@ -1,4 +1,3 @@
-package src;
 /**
  * @author Paul Molczanski
  * @email paulmski@gmail.com
@@ -129,7 +128,7 @@ public class Board {
                     break;
                 // right to left
                 case 3:
-                        this.setPixel(string.charAt(i), i, column - i);
+                        this.setPixel(string.charAt(i), row, column - i);
                     break;
                 // Default: left to right
                 default:
