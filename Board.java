@@ -52,8 +52,9 @@ public class Board {
                 System.out.println(this.getBoard()[i][j]);
             }
         }
-
     }
+
+    
 
 
 
