@@ -64,13 +64,20 @@ public class Board {
     }
     // TODO: add description
     public void setBoard(char[][] board) {
+        this.board = board;
         for (int i=0; i<this.getBoard().length; i++) {
             for (int j=0;j<this.getBoard()[i].length; j++) {
-                this.setPixel(board[i][j], i, j);
+                // Checks if pixel is empty. if so it sets the pixel to the default blank pixel.
+                if (Character.isWhitespace(board[i][j])) {
+                    this.setPixel(this.getBlankPixel(), i, j);
+                } else {
+                    this.setPixel(blankPixel, i, j);
+                }
+                
             }
         }
     }
-
+    // TODO: add description
     public void setBoard(char[][] board, char pixel) {
         for (int i=0; i<this.getBoard().length; i++) {
             for (int j=0;j<this.getBoard()[i].length; j++) {
@@ -85,7 +92,42 @@ public class Board {
 
     // Set the value of an individual pixel (Character)
     public void setPixel(char pixel, int row, int column) {
-        this.board[row][column] = pixel;
+            this.board[row][column] = pixel;
+    }
+
+
+    /*
+    string: A string of arbitrary size, but it will be cut off if it exceeds the board space.
+    row: The row which the string should be drawn in.
+    column: The column which the string should be drawn in.
+    orientation: The orientation of the string. There are four possible orientations
+    0: bottom to top
+    Example: 
+    g
+    n 
+    i
+    r
+    t
+    s
+    1: left to right:
+    Example:
+    s t r i n g
+    2: top to bottom:
+    s
+    t
+    r
+    r
+    i
+    n
+    g
+    3: right to left g n i r t string
+    If the orientation is not between 0-3 it will be defaulted to 1 and an error message will be sent.
+    */
+    public void drawObject(String string, int row, int column, int orientation) {
+        switch (orientation) {
+            case 0:
+                
+        }
     }
 
 
@@ -94,8 +136,9 @@ public class Board {
     public void drawBoard() {
         for (int i=0; i<this.getBoard().length; i++) {
             for (int j=0;j<this.getBoard()[i].length; j++) {
-                System.out.println(this.getBoard()[i][j]);
+                System.out.print(this.getBoard()[i][j] + " ");
             }
+            System.out.print('\n');
         }
     }
 
