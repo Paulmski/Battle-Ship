@@ -97,103 +97,92 @@ public class Board {
 
     /*
      * string: A string of arbitrary size, but it will be cut off if it exceeds the
-     * board space. 
-     * row: The row which the string should be drawn in. 
-     * column: The
-     * column which the string should be drawn in. 
-     * orientation: The orientation of the string. 
-     * There are four possible orientations 
-     * 0: bottom to top 
-     * Example: 
-     * g
-     * n 
-     * i 
-     * r 
-     * t 
-     * s 
-     * 1: left to right: 
-     * Example: s t r i n g 
-     * 2: top to bottom: 
-     * Example:
-     * s 
-     * t 
-     * r 
-     * r 
-     * i
-     * n 
-     * g 
-     * 3: right to left 
-     * Example: g n i r t s 
+     * board space. row: The row which the string should be drawn in. column: The
+     * column which the string should be drawn in. orientation: The orientation of
+     * the string. There are four possible orientations 0: bottom to top Example: g
+     * n i r t s 1: left to right: Example: s t r i n g 2: top to bottom: Example: s
+     * t r r i n g 3: right to left Example: g n i r t s
      * 
      * 
-     * If the orientation is not between 0-3
-     * it will be defaulted to 1.
+     * If the orientation is not between 0-3 it will be defaulted to 1.
+     * 
+     * If a character is a white space e.g. '\0' that pixel will not be set.
      */
     public void setObject(String string, int row, int column, int orientation) {
-        switch (orientation) {
-        // bottom to top
-        case 0:
-            for (int i = 0; i < string.length(); i++) {
-                this.setPixel(string.charAt(i), row - i, column);
+        for (int i = 0; i < string.length(); i++) {
+            if (Character.isWhitespace(string.charAt(i))) {
+                continue;
             }
-            break;
-            // left to right
-        case 1:
-            for (int i = 0; i < string.length(); i++) {
-                this.setPixel(string.charAt(i), row, column + i);
-            }
-            break;
-            // top to bottom
-        case 2:
-            for (int i = 0; i < string.length(); i++) {
-                this.setPixel(string.charAt(i), row + i, column);
-            }
-            break;
-            // right to left
-        case 3:
-            for (int i = 0; i < string.length(); i++) {
-                this.setPixel(string.charAt(i), i, column - i);
-            }
-            break;
-            // Default: left to right
-        default:
-            this.setObject(string, row, column, 1);
+            switch (orientation) {
+                // bottom to top
+                case 0:
+                        this.setPixel(string.charAt(i), row - i, column);
+                    break;
+                // left to right
+                case 1:
+                        this.setPixel(string.charAt(i), row, column + i);
+                    break;
+                // top to bottom
+                case 2:
+                        this.setPixel(string.charAt(i), row + i, column);
+                    break;
+                // right to left
+                case 3:
+                        this.setPixel(string.charAt(i), i, column - i);
+                    break;
+                // Default: left to right
+                default:
+                    this.setObject(string, row, column, 1);
+                }
         }
     }
-
 
     public void setObject(char[] characters, int row, int column, int orientation) {
-        switch (orientation) {
-        // bottom to top
-        case 0:
-            for (int i = 0; i < characters.length; i++) {
+
+        for (int i = 0; i < characters.length; i++) {
+            if (Character.isWhitespace(characters[i])) {
+                continue;
+            }
+            switch (orientation) {
+            // bottom to top
+            case 0:
                 this.setPixel(characters[i], row - i, column);
-            }
-            break;
+
+                break;
             // left to right
-        case 1:
-            for (int i = 0; i < characters.length; i++) {
+            case 1:
                 this.setPixel(characters[i], row, column + i);
-            }
-            break;
+
+                break;
             // top to bottom
-        case 2:
-            for (int i = 0; i < characters.length; i++) {
+            case 2:
                 this.setPixel(characters[i], row + i, column);
-            }
-            break;
+
+                break;
             // right to left
-        case 3:
-            for (int i = 0; i < characters.length; i++) {
+            case 3:
                 this.setPixel(characters[i], i, column - i);
-            }
-            break;
+
+                break;
             // Default: left to right
-        default:
-            this.setObject(characters, row, column, 1);
+            default:
+                this.setObject(characters, row, column, 1);
+            }
         }
+
     }
 
+    // The implementation of drawing a 2d is slightly different than the other two
+    // implementations.
+    /*
+     * characters: A 2d array of characters which represent the 2d space in which
+     * the character should be displayed. row: The row which the characters should
+     * start at. column: The column which the characters should start at. Drawing
+     * begins in the top left corner of the object.
+     */
+    public void setObject(char[][] characters, int row, int column) {
+
+    }
 
     // Draws the characters that are within the board variable.
     // Careful if there is more than one board being presented to the user this
