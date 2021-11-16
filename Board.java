@@ -161,6 +161,40 @@ public class Board {
         }
     }
 
+
+    public void setObject(char[] characters, int row, int column, int orientation) {
+        switch (orientation) {
+        // bottom to top
+        case 0:
+            for (int i = 0; i < characters.length; i++) {
+                this.setPixel(characters[i], row - i, column);
+            }
+            break;
+            // left to right
+        case 1:
+            for (int i = 0; i < characters.length; i++) {
+                this.setPixel(characters[i], row, column + i);
+            }
+            break;
+            // top to bottom
+        case 2:
+            for (int i = 0; i < characters.length; i++) {
+                this.setPixel(characters[i], row + i, column);
+            }
+            break;
+            // right to left
+        case 3:
+            for (int i = 0; i < characters.length; i++) {
+                this.setPixel(characters[i], i, column - i);
+            }
+            break;
+            // Default: left to right
+        default:
+            this.setObject(characters, row, column, 1);
+        }
+    }
+
+
     // Draws the characters that are within the board variable.
     // Careful if there is more than one board being presented to the user this
     // method will override other boards.
