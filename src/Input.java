@@ -10,13 +10,17 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/* Since there is only one screen being shown to the user there is no good reason to hav instances of this class.
+It also doesn't interact with any data making it more of a utility class.
+Thus, all methods for this class are static.*/
 public class Input {
 
-    // Asks the user for a row and column along with the message given in the
-    // message parameter.
-    // If the user provides an invalid input an empty Pixel will be returned. This
-    // is so the screen can be correctly redrawn
-    // and the user can be asked again.
+    /*
+     * Asks the user for a row and column along with the message given in the
+     * message parameter. If the user provides an invalid input an empty Pixel will
+     * be returned. This is so the screen can be correctly redrawn.and the user can
+     * be asked again.
+     */
     public static Pixel getPixel(String message, int lowerRow, int upperRow, int lowerCol, int upperCol) {
         // Pixel to be eventually returned
         Pixel pixel = new Pixel();
@@ -25,11 +29,8 @@ public class Input {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Select row between: " + (char) (lowerRow + 65) + " and " + (char) (upperRow + 65));
         String input = scanner.next();
-        // The given input must be of length one otherwise the input will be asked for
-        // again.
+        // The given input must be of length one otherwise the input will rejected.
         if (input.length() == 1) {
-            pixel.setRow(-1);
-
             // Indexing of string is safe because it is known that the string is exactly of
             // length 1
             int row = ((int) input.charAt(0)) - 65;
@@ -56,9 +57,9 @@ public class Input {
         } catch (InputMismatchException e) {
             pixel.setColumn(-1);
         }
-
-        // Prevent memory leak.
         return pixel;
     }
+
+    
 
 }

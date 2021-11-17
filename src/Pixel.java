@@ -39,7 +39,7 @@ public class Pixel {
     }
 
 
-    // ********* Setter ad Getter methods
+    // ********* Setter and Getter methods ************
     public int getRow() {
         return this.row;
     }
