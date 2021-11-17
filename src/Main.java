@@ -11,5 +11,11 @@
 public class Main {
     public static void main(String[] args) {
       
+      Input.getPixel("Pick a quadrant to bomb!", 0, 7, 0, 7);
+      
+
+
+
+
     }
 }
