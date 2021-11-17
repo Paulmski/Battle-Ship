@@ -9,7 +9,7 @@
 public class Main {
   public static void main(String[] args) {
       GameEngine gameEngine = new GameEngine();
-      while (gameEngine.getIsRunning()) {
+      while (gameEngine.isRunning()) {
         gameEngine.showMenu();
         gameEngine.startGame();
       }
