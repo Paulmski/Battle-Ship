@@ -15,6 +15,9 @@ public class Pixel {
     private char value;
 
 
+
+
+    // *********** Constructors ***********
     Pixel(int row, int column, char value) {
         this.setRow(row);
         this.setColumn(column);
@@ -28,6 +31,15 @@ public class Pixel {
 
     }
 
+
+    Pixel() {
+        this.setRow(0);
+        this.setColumn(0);
+        this.setValue('\0');
+    }
+
+
+    // ********* Setter ad Getter methods
     public int getRow() {
         return this.row;
     }
