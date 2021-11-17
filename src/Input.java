@@ -7,6 +7,7 @@
  * @desc A helper class to receive and moderate user interactions with the program.
  */
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Input {
@@ -26,34 +27,37 @@ public class Input {
         String input = scanner.next();
         // The given input must be of length one otherwise the input will be asked for
         // again.
-        if (input.length() != 1) {
-            scanner.close();
-            return new Pixel();
-        }
-        // Indexing of string is safe because it is known that the string is exactly of
-        // length 1
-        int row = ((int) input.charAt(0)) - 65;
-        if (row >= lowerRow && row <= upperRow) {
-            pixel.setRow(row);
-        } else {
-            scanner.close();
-            return new Pixel();
-        }
+        if (input.length() == 1) {
+            pixel.setRow(-1);
 
+            // Indexing of string is safe because it is known that the string is exactly of
+            // length 1
+            int row = ((int) input.charAt(0)) - 65;
+            if (row >= lowerRow && row <= upperRow) {
+                pixel.setRow(row);
+            } else {
+                pixel.setRow(-1);
+            }
+        } else {
+            pixel.setRow(-1);
+        }
         System.out.println("Select column between: " + lowerCol + " and " + upperCol);
-        int input2 = scanner.nextInt();
+        try {
+            int input2 = scanner.nextInt();
 
-        // Indexing of string is safe because it is known that the string is exactly of
-        // length 1
-        if (input2 >= lowerRow && input2 <= upperRow) {
-            pixel.setRow(input2);
-        } else {
-            scanner.close();
-            return new Pixel();
+            // Indexing of string is safe because it is known that the string is exactly of
+            // length 1
+            if (input2 >= lowerCol && input2 <= upperCol) {
+                pixel.setColumn(input2);
+            } else {
+                pixel.setColumn(-1);
+            }
+
+        } catch (InputMismatchException e) {
+            pixel.setColumn(-1);
         }
 
         // Prevent memory leak.
-        scanner.close();
         return pixel;
     }
 

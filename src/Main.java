@@ -10,9 +10,12 @@
 
 public class Main {
     public static void main(String[] args) {
-      
-      Input.getPixel("Pick a quadrant to bomb!", 0, 7, 0, 7);
-      
+      Pixel pixel;
+      do {
+        Board.drawBlank();
+        pixel = Input.getPixel("Pick a quadrant to bomb!", 0, 7, 0, 7);
+      } while (pixel.getRow() < 0 || pixel.getColumn() < 0);
+
 
 
 
