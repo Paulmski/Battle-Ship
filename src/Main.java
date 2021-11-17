@@ -6,19 +6,12 @@
  * @desc The main class which will execute.
  */
 
-
-
 public class Main {
-    public static void main(String[] args) {
-      Pixel pixel;
-      do {
-        Board.drawBlank();
-        pixel = Input.getPixel("Pick a quadrant to bomb!", 0, 7, 0, 7);
-      } while (pixel.getRow() < 0 || pixel.getColumn() < 0);
-
-
-
-
-
-    }
+  public static void main(String[] args) {
+      GameEngine gameEngine = new GameEngine();
+      while (gameEngine.getIsRunning()) {
+        gameEngine.showMenu();
+        gameEngine.startGame();
+      }
+  }
 }
