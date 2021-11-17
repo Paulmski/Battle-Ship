@@ -60,6 +60,28 @@ public class Input {
         return pixel;
     }
 
+    public static String getString(String message) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(message);
+        String input = scanner.next();
+        return input;
+    }
+
+    public static int getInt(String message, int lower, int upper) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(message);
+        try {
+        int input = scanner.nextInt();
+        if (input > lower && input < upper) {
+            return input;
+        } else {
+            return getInt(message, lower, upper);
+        }
+        } catch (NumberFormatException e) {
+            return getInt(message, lower, upper);
+        }
+    }
+
     
 
 }
