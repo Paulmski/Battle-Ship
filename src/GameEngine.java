@@ -23,6 +23,20 @@ public class GameEngine {
 
 
 
+    
+
+    public boolean isRunning() {
+        return this.running;
+    }
+
+
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
+
+
+    // ********** Class specific methods ***********
     public void showMenu() {
         mainBoard = new Board(48, 18, ' ');
         Board.drawBlank();
@@ -48,32 +62,26 @@ public class GameEngine {
                 this.setRunning(false);
                 return;
         }
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
+       
+    }
+
+
+
+    public void startGame() {
+        // Single player mode
+        if (gameMode == 0) {
+            String name = Input.getString("What's your name?");
+            Player player1 = new Player(name);
+
+
+
+
+
+        } else if (gameMode == 1) {
 
         }
     }
 
-
-
-
-
-    public boolean isRunning() {
-        return this.running;
-    }
-
-    public void startGame() {
-
-    }
-
-    public void setRunning(boolean running) {
-        this.running = running;
-    }
-
-
-
-    // ********** Class specific methods ***********
 
     
 }
