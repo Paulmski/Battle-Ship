@@ -59,7 +59,7 @@ public class Input {
         }
         return pixel;
     }
-
+    // Shows a message to user and returns their input as a string.
     public static String getString(String message) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(message);
@@ -67,12 +67,13 @@ public class Input {
         return input;
     }
 
+    // Shows message to user and accepts only an integer equal to or within the lower and upper range.
     public static int getInt(String message, int lower, int upper) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(message);
         try {
         int input = scanner.nextInt();
-        if (input > lower && input < upper) {
+        if (input >= lower && input <= upper) {
             return input;
         } else {
             return getInt(message, lower, upper);

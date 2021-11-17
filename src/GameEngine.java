@@ -30,7 +30,7 @@ public class GameEngine {
         mainBoard.setObject("1:  Single Player Mode", 8,10,1);
         mainBoard.setObject("2:  Two Player Mode", 10,10,1);
         mainBoard.setObject("3:  Quit Game",12,10,1);
-        String input 
+        int input
         
         mainBoard.drawBoard();
         try {
