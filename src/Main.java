@@ -10,11 +10,18 @@
 
 public class Main {
     public static void main(String[] args) {
-        Board board = new Board(20,20, '*');
-        board.setPixel('X', 1, 0);
-        Board mainBoard = new Board(40,40, ' ');
-        mainBoard.setObject(board.getBoard(), 10, 10);
-        mainBoard.setObject("Hello", 30, 10, 3);
-        mainBoard.drawBoard();
+        Board board = new Board(20,20, '#');
+      for (int i = 0; i <3000; i++) {
+          try {
+            board.setObject(String.valueOf(i), 10, 10, 1);
+            board.drawBoard();
+            Thread.sleep(33);
+            Board.drawBlank();
+
+          
+          } catch (InterruptedException e) {
+
+          }
+        }
     }
 }

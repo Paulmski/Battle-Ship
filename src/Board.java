@@ -90,6 +90,13 @@ public class Board {
 
     // ************ Class specific methods ***********************
 
+    // A simple helper method to clear the screen of all previous characters.
+    public static void drawBlank() {
+        // The ANSI escape code to clear the screen.
+        System.out.print("\033c");
+
+    }
+
     // Set the value of an individual pixel (Character)
     public void setPixel(char pixel, int row, int column) {
         this.board[row][column] = pixel;
@@ -161,7 +168,7 @@ public class Board {
                 break;
             // right to left
             case 3:
-                this.setPixel(characters[i], i, column - i);
+                this.setPixel(characters[i], row, column - i);
 
                 break;
             // Default: left to right
@@ -182,7 +189,7 @@ public class Board {
      */
     public void setObject(char[][] characters, int row, int column) {
         for (int i = 0; i <characters.length; i++) {
-            for (int j=0; j<characters.length; j++) {
+            for (int j=0; j<characters[i].length; j++) {
                 this.setPixel(characters[i][j], i+row, j+column);
             }
         }
