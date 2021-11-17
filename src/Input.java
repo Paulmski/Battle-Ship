@@ -78,7 +78,7 @@ public class Input {
         } else {
             return getInt(message, lower, upper);
         }
-        } catch (NumberFormatException e) {
+        } catch (InputMismatchException e) {
             return getInt(message, lower, upper);
         }
     }
