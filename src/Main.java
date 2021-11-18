@@ -11,7 +11,7 @@ public class Main {
       GameEngine gameEngine = new GameEngine();
       while (gameEngine.isRunning()) {
         gameEngine.showMenu();
-        if (gameEngine.isRunning()) {return;}
+        if (!gameEngine.isRunning()) {return;}
         gameEngine.startGame();
       }
   }

@@ -17,28 +17,40 @@ public class Board {
     private char[][] board;
     // The default pixel value if no other value has been assigned.
     private char blankPixel;
+    /* Due to the exponential work of managing multiple objects and continually redrawing them,
+    Ships or Boards can be added with the addObject() method, meaning the next time this board
+    is redrawn it will redraw the values held in the subObjects array. Subobject positioning is
+    held in the subObjectPositions array.
+    */
+    private Object[] subObjects = new Object[10];
+    // Each elemest contains the row, column, and orientation of the same indexed subObject.
+    private int[][] subObjectPositions = new int[10][3];
 
+
+
+    // Constructors
     Board(int width, int height, char blankPixel) {
         this.setWidth(width);
         this.setHeight(height);
         this.setBlankPixel(blankPixel);
         this.setBoard(new char[height][width]);
+  
     }
 
     // *********** Setter and Getter methods ***********
     public int getWidth() {
         return this.width;
     }
-
-    public void setWidth(int width) {
+    // Board can not dynamically change width
+    private void setWidth(int width) {
         this.width = width;
     }
 
     public int getHeight() {
         return this.height;
     }
-
-    public void setHeight(int height) {
+    // Board can not dynamically change height
+    private void setHeight(int height) {
         this.height = height;
     }
 
@@ -53,6 +65,14 @@ public class Board {
     public void setBlankPixel(char blankPixel) {
         this.blankPixel = blankPixel;
     }
+
+
+
+
+
+
+
+
 
     // TODO: add description
     public void setBoard() {
@@ -199,6 +219,9 @@ public class Board {
 
     }
 
+    
+
+
     // The implementation of drawing a 2d is slightly different than the other two
     // implementations.
     /*
@@ -228,13 +251,30 @@ public class Board {
         }
     }
 
-
-    public void resetBoard() {
+    /* This adds the board to the subObjects array, meaning the next time the drawBoard method is called
+    this board will be redrawn with the board.
+    */
+    public void addObject(Board object, int row, int column, int orientation) {
+        for (int i = 0; i < this.subObjects.length; i++) {
+            if (this.subObjects[i]  == null) {
+                this.subObjects[i] = object;
+                this.subObjectPositions[i][0] = row;
+                this.subObjectPositions[i][1] = column;
+                this.subObjectPositions[i][2] = orientation;
+            }
+        }
+    }
+    // A function to wipe all pixels to the blank pixel.
+    public void clearBoard() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 this.setPixel(blankPixel, i, j);
             }
         }
     }
+
+
+  
+
 
 }
