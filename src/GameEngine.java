@@ -70,10 +70,10 @@ public class GameEngine {
     public void startGame() {
         // Reset mainBoard to be redrawn for main playing area
         Board.drawBlank();
-        mainBoard.resetBoard();
+        mainBoard.clearBoard();
         // The board that ships will be placed in.
         Board battleBoard = new Board(10, 10, '#');
-        mainBoard.setObject(battleBoard.getBoard(), 4, 19);
+        mainBoard.addBoard(battleBoard, 4, 19);
         // The top bar to show the user how to select a square
         mainBoard.setObject("0123456789", 3, 19, 1);
         mainBoard.setObject("ABCDEFGHIJ", 4, 18, 2);
@@ -86,13 +86,10 @@ public class GameEngine {
         // Single player mode
         if (gameMode == 0) {
             Board.drawBlank();
-            mainBoard.setObject("Welcome, what's your name?", 0, 3, 1);
             mainBoard.drawBoard();
             String name = Input.getString("What's your name?");
             Player player1 = new Player(name, 10, 10);
             Player cpu = new Player("CPU", 10, 10);
-            Board.drawBlank();
-            Board.set
 
 
 

@@ -22,9 +22,10 @@ public class Board {
     is redrawn it will redraw the values held in the subObjects array. Subobject positioning is
     held in the subObjectPositions array.
     */
-    private Object[] subObjects = new Object[10];
-    // Each elemest contains the row, column, and orientation of the same indexed subObject.
-    private int[][] subObjectPositions = new int[10][3];
+    private Board[] subBoards = new Board[10];
+   
+    // Each element contains the row, column, and orientation of the same indexed subBoard.
+    private int[][] subBoardPositions = new int[10][2];
 
 
 
@@ -65,6 +66,7 @@ public class Board {
     public void setBlankPixel(char blankPixel) {
         this.blankPixel = blankPixel;
     }
+
 
 
 
@@ -243,27 +245,34 @@ public class Board {
     // Careful if there is more than one board being presented to the user this
     // method will override other boards.
     public void drawBoard() {
+        for (int i = 0; i < this.subBoards.length; i++) {
+            if (this.subBoards[i] != null) {
+            this.setObject(subBoards[i].getBoard(), this.subBoardPositions[i][0], this.subBoardPositions[i][1]);
+            }
+        }
+        
         for (int i = 0; i < this.getBoard().length; i++) {
             for (int j = 0; j < this.getBoard()[i].length; j++) {
                 System.out.print(this.getBoard()[i][j] + " ");
             }
             System.out.print('\n');
         }
+        
     }
 
     /* This adds the board to the subObjects array, meaning the next time the drawBoard method is called
     this board will be redrawn with the board.
     */
-    public void addObject(Board object, int row, int column, int orientation) {
-        for (int i = 0; i < this.subObjects.length; i++) {
-            if (this.subObjects[i]  == null) {
-                this.subObjects[i] = object;
-                this.subObjectPositions[i][0] = row;
-                this.subObjectPositions[i][1] = column;
-                this.subObjectPositions[i][2] = orientation;
+    public void addBoard(Board board, int row, int column) {
+        for (int i = 0; i < this.subBoards.length; i++) {
+            if (this.subBoards[i]  == null) {
+                this.subBoards[i] = board;
+                this.subBoardPositions[i][0] = row;
+                this.subBoardPositions[i][1] = column;
             }
         }
     }
+
     // A function to wipe all pixels to the blank pixel.
     public void clearBoard() {
         for (int i = 0; i < board.length; i++) {
