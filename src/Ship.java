@@ -12,6 +12,12 @@
      private String name;
      // The appearance of it on the board
      private String appearance;
+     // The positioning of the ship within a board.
+     private int[][]position;
+     // The health of the ship.
+     private int health;
+
+    
 
 
 
@@ -31,6 +37,22 @@
 
     public void setAppearance(String appearance) {
         this.appearance = appearance;
+    }
+
+    public int[][] getPosition() {
+        return this.position;
+    }
+
+    public void setPosition(int[][] position) {
+        this.position = position;
+    }
+
+    public int getHealth() {
+        return this.health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
      
  }

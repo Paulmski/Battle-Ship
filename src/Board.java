@@ -107,6 +107,7 @@ public class Board {
         return this.board[row][column];
     }
 
+    //TODO: Fix formatting of documentation.
     /*
      * string: A string of arbitrary size, but it will be cut off if it exceeds the
      * board space. row: The row which the string should be drawn in. column: The
