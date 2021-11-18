@@ -53,5 +53,15 @@ public class Player {
     }
 
 
+    // ******** Class methods ********
+    public void setGuess(int row, int column, boolean onTarget) {
+       if (onTarget) {
+           this.guesses.setPixel('X', row, column);
+       } else {
+           this.guesses.setPixel('O', row, column);
+       }
+    }
+
+
 
 }

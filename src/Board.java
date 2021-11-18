@@ -102,6 +102,11 @@ public class Board {
         this.board[row][column] = pixel;
     }
 
+    // Get the value of a specific pixel (Character)
+    public char getPixel(int row, int column) {
+        return this.board[row][column];
+    }
+
     /*
      * string: A string of arbitrary size, but it will be cut off if it exceeds the
      * board space. row: The row which the string should be drawn in. column: The
