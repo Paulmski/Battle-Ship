@@ -22,6 +22,15 @@
 
 
 
+     // ********** Constructors ***********
+     Ship(String name, String appearance) {
+         this.setName(name);
+         this.setAppearance( appearance );
+         this.setHealth(appearance.length());
+
+     }
+
+
      // ********** Setter and getter methods ********
     public String getName() {
         return this.name;

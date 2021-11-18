@@ -68,10 +68,19 @@ public class GameEngine {
 
 
     public void startGame() {
+
+        Board.drawBlank();
+        mainBoard.
+
+
+
         // Single player mode
         if (gameMode == 0) {
             String name = Input.getString("What's your name?");
-            Player player1 = new Player(name);
+            Player player1 = new Player(name, 10, 10);
+            Player cpu = new Player("CPU", 10, 10);
+
+
 
 
 
