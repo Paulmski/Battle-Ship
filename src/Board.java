@@ -118,35 +118,49 @@ public class Board {
      * 
      * If the orientation is not between 0-3 it will be defaulted to 1.
      * 
-     * If a character is a white space e.g. '\0' that pixel will not be set.
+     * If a character is a white space e.g. '\0' that pixel will not be set. The
+     * return value is the position of each pixel in relationship to the board
+     * instance.
      */
-    public void setObject(String string, int row, int column, int orientation) {
+    public int[][] setObject(String string, int row, int column, int orientation) {
+        int[][] pixels = new int[string.length()][2];
         for (int i = 0; i < string.length(); i++) {
             if (string.charAt(i) == '\0') {
                 continue;
             }
             switch (orientation) {
-                // bottom to top
-                case 0:
-                        this.setPixel(string.charAt(i), row - i, column);
-                    break;
-                // left to right
-                case 1:
-                        this.setPixel(string.charAt(i), row, column + i);
-                    break;
-                // top to bottom
-                case 2:
-                        this.setPixel(string.charAt(i), row + i, column);
-                    break;
-                // right to left
-                case 3:
-                        this.setPixel(string.charAt(i), row, column - i);
-                    break;
-                // Default: left to right
-                default:
-                    this.setObject(string, row, column, 1);
-                }
+            // bottom to top
+            case 0:
+                pixels[i][0] = row - i;
+                pixels[i][1] = column;
+                this.setPixel(string.charAt(i), row - i, column);
+                break;
+            // left to right
+            case 1:
+                pixels[i][0] = row;
+                pixels[i][1] = column + i;
+                this.setPixel(string.charAt(i), row, column + i);
+                break;
+            // top to bottom
+            case 2:
+                pixels[i][0] = row + i;
+                pixels[i][1] = column;
+                this.setPixel(string.charAt(i), row + i, column);
+                break;
+            // right to left
+            case 3:
+                pixels[i][0] = row;
+                pixels[i][1] = column - i;
+                this.setPixel(string.charAt(i), row, column - i);
+                break;
+            // Default: left to right
+            default:
+                pixels[i][0] = row + i;
+                pixels[i][1] = column;
+                this.setObject(string, row, column + i, 1);
+            }
         }
+        return pixels;
     }
 
     public void setObject(char[] characters, int row, int column, int orientation) {
@@ -193,9 +207,9 @@ public class Board {
      * begins in the top left corner of the object.
      */
     public void setObject(char[][] characters, int row, int column) {
-        for (int i = 0; i <characters.length; i++) {
-            for (int j=0; j<characters[i].length; j++) {
-                this.setPixel(characters[i][j], i+row, j+column);
+        for (int i = 0; i < characters.length; i++) {
+            for (int j = 0; j < characters[i].length; j++) {
+                this.setPixel(characters[i][j], i + row, j + column);
             }
         }
 
