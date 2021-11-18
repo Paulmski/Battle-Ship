@@ -240,14 +240,23 @@ public class Board {
         }
 
     }
+    // A convenience function to center the string in any given row within the board.
+    public void centerString(String string, int row) {
+       int start = (this.getWidth() / 2) - (string.length()/2);
+       System.out.println(start);
+        for (int i = 0; i < string.length(); i++) {
+            this.setPixel(string.charAt(i), row, start+i);
+        }
+    }
 
     // Draws the characters that are within the board variable.
     // Careful if there is more than one board being presented to the user this
     // method will override other boards.
     public void drawBoard() {
         for (int i = 0; i < this.subBoards.length; i++) {
+            System.out.println(this.subBoards[i]);
             if (this.subBoards[i] != null) {
-            this.setObject(subBoards[i].getBoard(), this.subBoardPositions[i][0], this.subBoardPositions[i][1]);
+            this.setObject(this.subBoards[i].getBoard(), this.subBoardPositions[i][0], this.subBoardPositions[i][1]);
             }
         }
         
@@ -269,6 +278,7 @@ public class Board {
                 this.subBoards[i] = board;
                 this.subBoardPositions[i][0] = row;
                 this.subBoardPositions[i][1] = column;
+                return;
             }
         }
     }

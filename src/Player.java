@@ -16,15 +16,19 @@ public class Player {
     private Board shipPlacements;
     // The name of the player
     private String name;
+    // An array to hold the ship objects the player has.
+    private Ship[] ships;
+
 
 
 
 // ******** Constructors ***********
 
-    Player(String name, int width, int height) {
+    Player(String name, int width, int height, int maxShips) {
         this.setGuesses(new Board(width,height,'\0'));
         this.setShipPlacements(new Board(width,height,'\0'));
         this.setName(name);
+        this.setShips(new Ship[maxShips]);
     }
 
 
@@ -50,6 +54,23 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    public Ship[] getShips() {
+        return this.ships;
+    }
+
+    public void setShips(Ship[] ships) {
+        this.ships = ships;
+    }
+
+    public void addShip(Ship ship) {
+        for (int i = 0; i < this.getShips().length; i++) {
+            if (this.getShips()[i] == null) {
+                this.ships[i] = ship;
+            }
+        }
     }
 
 

@@ -85,11 +85,24 @@ public class GameEngine {
 
         // Single player mode
         if (gameMode == 0) {
+            Player player1 = new Player("", 10, 10, 5);
+            Player cpu = new Player("CPU", 10, 10, 5);
             Board.drawBlank();
             mainBoard.drawBoard();
-            String name = Input.getString("What's your name?");
-            Player player1 = new Player(name, 10, 10);
-            Player cpu = new Player("CPU", 10, 10);
+            player1.setName(Input.getString("What's your name?"));
+            Board titleBar = new Board(mainBoard.getWidth(), 1, ' ');
+            mainBoard.addBoard(titleBar, 0,0);
+            titleBar.centerString("Welcome " + player1.getName(), 0);
+            System.out.println("test");
+            System.out.println(titleBar.getBoard());
+            titleBar.drawBoard();
+            Input.getString("Test");
+
+
+            
+            
+            
+           
 
 
 
