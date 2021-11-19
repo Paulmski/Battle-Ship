@@ -53,7 +53,7 @@ public class GameEngine {
         Board.drawBlank();
         this.getMainBoard().clearBoard();
         this.getMainBoard().setObject("Welcome to Battle Ship!", 0, 12, 1);
-        this.getMainBoard().setObject("Please select from the menu below", 3, 7, 1);
+        this.getMainBoard().centerString("Please select from the menu below", 3);
         this.getMainBoard().setObject("1:  Single Player Mode", 8, 10, 1);
         this.getMainBoard().setObject("2:  Two Player Mode", 10, 10, 1);
         this.getMainBoard().setObject("3:  Quit Game", 12, 10, 1);

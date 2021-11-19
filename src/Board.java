@@ -115,7 +115,15 @@ public class Board {
 
     // Set the value of an individual pixel (Character)
     public void setPixel(char pixel, int row, int column) {
-        this.board[row][column] = pixel;
+        try {
+            this.board[row][column] = pixel;
+        } catch (IndexOutOfBoundsException e) {
+           /* If the pixel it is out of bounds it will simply not be drawn to the board. 
+           Perhaps a log method could be used to document this out of bounds error, 
+           but for the current scope of our classes learning catching this error
+           and returning is satisfactory.
+           */
+        }
     }
 
     // Get the value of a specific pixel (Character)
@@ -280,7 +288,6 @@ public class Board {
     // board.
     public void centerString(String string, int row) {
         int start = (this.getWidth() / 2) - (string.length() / 2);
-        System.out.println(start);
         for (int i = 0; i < string.length(); i++) {
             this.setPixel(string.charAt(i), row, start + i);
         }
@@ -291,7 +298,6 @@ public class Board {
     // method will override other boards.
     public void drawBoard() {
         for (int i = 0; i < this.subBoards.length; i++) {
-            System.out.println(this.subBoards[i]);
             if (this.subBoards[i] != null) {
                 this.setObject(this.subBoards[i].getBoard(), this.subBoardPositions[i][0],
                         this.subBoardPositions[i][1]);
