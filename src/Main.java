@@ -8,8 +8,8 @@
 
 public class Main {
   public static void main(String[] args) {
-      GameEngine gameEngine = new GameEngine();
-      while (gameEngine.isRunning()) {
+      while (true) {
+        GameEngine gameEngine = new GameEngine(48, 18);
         gameEngine.showMenu();
         if (!gameEngine.isRunning()) {return;}
         gameEngine.startGame();
