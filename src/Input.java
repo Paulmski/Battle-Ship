@@ -24,11 +24,8 @@ public class Input {
     public static Pixel getPixel(String message, int lowerRow, int upperRow, int lowerCol, int upperCol) {
         // Pixel to be eventually returned
         Pixel pixel = new Pixel();
-
         System.out.println(message);
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Select row between: " + (char) (lowerRow + 65) + " and " + (char) (upperRow + 65));
-        String input = scanner.next();
+        String input = Input.getString("Select row between: " + (char) (lowerRow + 65) + " and " + (char) (upperRow + 65));
         // The given input must be of length one otherwise the input will rejected.
         if (input.length() == 1) {
             // Indexing of string is safe because it is known that the string is exactly of
@@ -37,26 +34,12 @@ public class Input {
             if (row >= lowerRow && row <= upperRow) {
                 pixel.setRow(row);
             } else {
-                pixel.setRow(-1);
+                return getPixel(message, lowerRow, upperRow, lowerCol, upperCol);
             }
         } else {
-            pixel.setRow(-1);
+            return getPixel(message, lowerRow, upperRow, lowerCol, upperCol);
         }
-        System.out.println("Select column between: " + lowerCol + " and " + upperCol);
-        try {
-            int input2 = scanner.nextInt();
-
-            // Indexing of string is safe because it is known that the string is exactly of
-            // length 1
-            if (input2 >= lowerCol && input2 <= upperCol) {
-                pixel.setColumn(input2);
-            } else {
-                pixel.setColumn(-1);
-            }
-
-        } catch (InputMismatchException e) {
-            pixel.setColumn(-1);
-        }
+        pixel.setColumn(Input.getInt("Select column between: " + lowerCol + " and " + upperCol, lowerCol, upperCol));
         return pixel;
     }
     // Shows a message to user and returns their input as a string.
