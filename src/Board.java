@@ -297,6 +297,7 @@ public class Board {
     // Careful if there is more than one board being presented to the user this
     // method will override other boards.
     public void drawBoard() {
+        Board.drawBlank();
         for (int i = 0; i < this.subBoards.length; i++) {
             if (this.subBoards[i] != null) {
                 this.setObject(this.subBoards[i].getBoard(), this.subBoardPositions[i][0],
@@ -324,6 +325,15 @@ public class Board {
                 this.subBoardPositions[i][0] = row;
                 this.subBoardPositions[i][1] = column;
                 return;
+            }
+        }
+    }
+
+    // subBoards is iterated over once the matching board is found in the array it is set to null.
+    public void removeBoard(Board board) {
+        for (int i = 0; i < this.subBoards.length; i++) {
+            if (this.subBoards[i] == board) {
+                this.subBoards[i] = null;
             }
         }
     }
