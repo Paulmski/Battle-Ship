@@ -118,11 +118,12 @@ public class Board {
         try {
             this.board[row][column] = pixel;
         } catch (IndexOutOfBoundsException e) {
-           /* If the pixel it is out of bounds it will simply not be drawn to the board. 
-           Perhaps a log method could be used to document this out of bounds error, 
-           but for the current scope of our classes learning catching this error
-           and returning nothing is satisfactory.
-           */
+            /*
+             * If the pixel it is out of bounds it will simply not be drawn to the board.
+             * Perhaps a log method could be used to document this out of bounds error, but
+             * for the current scope of our classes learning catching this error and
+             * returning nothing is satisfactory.
+             */
         }
     }
 
@@ -264,9 +265,6 @@ public class Board {
 
     }
 
-
-   
-
     // The implementation of drawing a 2d is slightly different than the other two
     // implementations.
     /*
@@ -293,11 +291,34 @@ public class Board {
         }
     }
 
+    /*
+     * This recursiely traverses all subBoards of subBoards of subBoards... and
+     * set's them to their parent board.
+     */
+     /*
+     * This recursively traverses all subBoards of subBoards of subBoards... and
+     * set's them to their parent board.
+     */
+    public void setSubBoards(Board mainBoard) {
+        for (int i = 0; i < mainBoard.subBoards.length; i++) {
+            if (mainBoard.subBoards[i] != null) { 
+                setSubBoards(mainBoard.subBoards[i]);
+                mainBoard.setObject(mainBoard.subBoards[i].getBoard(), mainBoard.subBoardPositions[i][0],
+                        mainBoard.subBoardPositions[i][1]);    
+                
+            }
+        }
+
+    }
+
+    
+
     // Draws the characters that are within the board variable.
     // Careful if there is more than one board being presented to the user this
     // method will override other boards.
     public void drawBoard() {
         Board.drawBlank();
+        this.setSubBoards(this);
         for (int i = 0; i < this.subBoards.length; i++) {
             if (this.subBoards[i] != null) {
                 this.setObject(this.subBoards[i].getBoard(), this.subBoardPositions[i][0],
@@ -329,7 +350,8 @@ public class Board {
         }
     }
 
-    // subBoards is iterated over once the matching board is found in the array it is set to null.
+    // subBoards is iterated over once the matching board is found in the array it
+    // is set to null.
     public void removeBoard(Board board) {
         for (int i = 0; i < this.subBoards.length; i++) {
             if (this.subBoards[i] == board) {
@@ -347,7 +369,8 @@ public class Board {
         }
     }
 
-    // A more harsh version of of clearBoard which wipes all pixels to the blank pixel and removes all subBoards.
+    // A more harsh version of of clearBoard which wipes all pixels to the blank
+    // pixel and removes all subBoards.
     public void resetBoard() {
         this.clearBoard();
         for (int i = 0; i < subBoards.length; i++) {
