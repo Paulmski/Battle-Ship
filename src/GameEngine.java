@@ -22,9 +22,21 @@ public class GameEngine {
 
 
 
+   
 
+
+
+    // Constructors
     
+    GameEngine(int width, int height) {
+        mainBoard = new Board(width, height, ' ');
+        
+    }
 
+
+
+
+    // ******** Setters and getters ********
     public boolean isRunning() {
         return this.running;
     }
@@ -34,19 +46,34 @@ public class GameEngine {
         this.running = running;
     }
 
+    public int getGameMode() {
+        return this.gameMode;
+    }
+
+    public void setGameMode(int gameMode) {
+        this.gameMode = gameMode;
+    }
+
+    public Board getMainBoard() {
+        return this.mainBoard;
+    }
+
+    public void setMainBoard(Board mainBoard) {
+        this.mainBoard = mainBoard;
+    }
+
 
 
     // ********** Class specific methods ***********
     public void showMenu() {
-        mainBoard = new Board(48, 18, ' ');
         Board.drawBlank();
         
-        mainBoard.setObject("Welcome to Battle Ship!",0, 12, 1);
-        mainBoard.setObject("Please select from the menu below", 3,7,1);
-        mainBoard.setObject("1:  Single Player Mode", 8,10,1);
-        mainBoard.setObject("2:  Two Player Mode", 10,10,1);
-        mainBoard.setObject("3:  Quit Game",12,10,1);        
-        mainBoard.drawBoard();
+        this.getMainBoard().setObject("Welcome to Battle Ship!",0, 12, 1);
+        this.getMainBoard().setObject("Please select from the menu below", 3,7,1);
+        this.getMainBoard().setObject("1:  Single Player Mode", 8,10,1);
+        this.getMainBoard().setObject("2:  Two Player Mode", 10,10,1);
+        this.getMainBoard().setObject("3:  Quit Game",12,10,1);        
+        this.getMainBoard().drawBoard();
         int input  = Input.getInt("Enter 1, 2, or 3: ", 1, 3);
         switch (input) {
             // Selected single player mode
@@ -70,14 +97,14 @@ public class GameEngine {
     public void startGame() {
         // Reset mainBoard to be redrawn for main playing area
         Board.drawBlank();
-        mainBoard.clearBoard();
+        this.getMainBoard().clearBoard();
         // The board that ships will be placed in.
         Board battleBoard = new Board(10, 10, '#');
-        mainBoard.addBoard(battleBoard, 4, 19);
+        this.getMainBoard().addBoard(battleBoard, 4, 19);
         // The top bar to show the user how to select a square
-        mainBoard.setObject("0123456789", 3, 19, 1);
-        mainBoard.setObject("ABCDEFGHIJ", 4, 18, 2);
-        mainBoard.drawBoard();
+        this.getMainBoard().setObject("0123456789", 3, 19, 1);
+        this.getMainBoard().setObject("ABCDEFGHIJ", 4, 18, 2);
+        this.getMainBoard().drawBoard();
 
 
 
@@ -85,28 +112,22 @@ public class GameEngine {
 
         // Single player mode
         if (gameMode == 0) {
+            // Player 1
             Player player1 = new Player("", 10, 10, 5);
+            // CPU / player 2
             Player cpu = new Player("CPU", 10, 10, 5);
+            // Clear board
             Board.drawBlank();
-            mainBoard.drawBoard();
             player1.setName(Input.getString("What's your name?"));
+            // A title bar to display messages.
             Board titleBar = new Board(mainBoard.getWidth(), 1, ' ');
-            mainBoard.addBoard(titleBar, 0,0);
+            // Add the titleBar as a subBoard to the mainBoard.
+            this.getMainBoard().addBoard(titleBar, 0,0);
+            // Welcome the player
             titleBar.centerString("Welcome " + player1.getName(), 0);
-            System.out.println("test");
             System.out.println(titleBar.getBoard());
-            titleBar.drawBoard();
+            this.getMainBoard().drawBoard();
             Input.getString("Test");
-
-
-            
-            
-            
-           
-
-
-
-
 
 
 
@@ -114,6 +135,20 @@ public class GameEngine {
 
         } else if (gameMode == 1) {
 
+        }
+    }
+
+
+    public void takeTurn(Player player, Ship ship, Board board) {
+        Pixel pixel = Input.getPixel("Where do you want to place your ship?", 0,9,0,9);
+        if (board.getPixel(pixel.getRow(), pixel.getColumn()) != board.getBlankPixel()) {
+            Board.drawBlank();
+            this.getMainBoard().drawBoard();
+            System.out.println("");
+            System.out.println("");
+
+            int orientation = Input.getInt("Select the orientation of the ship: \n0: bottom to top\n1: left to right\n2: top to bottom\n3: right to left", 0, 3);
+            
         }
     }
 
