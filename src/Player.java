@@ -3,34 +3,33 @@
  * @email paulmski@gmail.com
  * @create date 2021-11-17 09:36:58
  * @modify date November 17, 2021 17:41
- * @desc The class which will contain player information like guesses, battleship placement, and scoring.
+ * @desc The class which will contain player information like guesses,
+ *       battleship placement, and scoring.
  */
-
-
 
 public class Player {
     // ********** Variables ************
     // A 2d grid which holds the players guesses
-    private Board guesses;
+    protected Board guesses;
     // A 2d grid which holds where the player places their battle ships
-    private Board shipPlacements;
+    protected Board shipPlacements;
     // The name of the player
-    private String name;
+    protected String name;
     // An array to hold the ship objects the player has.
-    private Ship[] ships;
+    protected Ship[] ships;
 
+    // ******** Constructors ***********
 
-
-
-// ******** Constructors ***********
-
-    Player(String name, int width, int height, int maxShips) {
-        this.setGuesses(new Board(width,height,'#'));
-        this.setShipPlacements(new Board(width,height,'#'));
+    public Player(String name, int width, int height, int maxShips) {
+        this.setGuesses(new Board(width, height, '#'));
+        this.setShipPlacements(new Board(width, height, '#'));
         this.setName(name);
         this.setShips(new Ship[maxShips]);
     }
 
+    public Player() {
+
+    }
 
     public Board getGuesses() {
         return this.guesses;
@@ -56,7 +55,6 @@ public class Player {
         this.name = name;
     }
 
-
     public Ship[] getShips() {
         return this.ships;
     }
@@ -73,56 +71,50 @@ public class Player {
         }
     }
 
-
     // ******** Class methods ********
 
+    /*
+     * Set's the guess of the player and modifies the guesses array. Return values:
+     * If it was a miss it returns null otherwise it returns the Ship which was hit.
+     */
+    public Ship setGuess(int row, int column, Player player) {
 
-
-    public void setGuess(int row, int column, boolean onTarget) {
-       if (onTarget) {
-           this.guesses.setPixel('X', row, column);
-       } else {
+       /* Iterates through each position in each ship to check if the row and column of the guess is a valid ship position. If the guess is on a ship, that ship instance is reduced one health, and returned.
+       */
+       for (int i = 0; i < player.getShips().length; i++) {
+           for (int j = 0; j < player.getShips()[i].getPosition()[j].length; j++) {
+                // The guess hit a ship!
+                if (player.getShips()[i].getPosition()[j][0] == row && player.getShips()[i].getPosition()[j][1] == column) 
+                {
+                    // reduce the health by one
+                    Ship hitShip = player.getShips()[i];
+                    hitShip.setHealth(hitShip.getHealth()-1);
+                    // Mark board and return hit ship.
+                    this.guesses.setPixel('X', row, column);
+                    return hitShip;
+                }
+           }
+        }
+            // The guess was a miss mark board and return null.
            this.guesses.setPixel('O', row, column);
-       }
+           return null;
+       
     }
 
-
-
-    public void placeShip(Ship ship) {
-        Pixel pixel = Input.getPixel("Where do you want to place your ship? (It's " + ship.getAppearance().length() + " tiles long)", 0, 9, 0, 9);
-
-        // Check there are no ships already placed at that pixel.
-        if (shipPlacements.getPixel(pixel.getRow(), pixel.getColumn()) != shipPlacements.getBlankPixel()) {
-            System.out.println("Sorry, looks like there's already a ship there!!!!!");
-            placeShip(ship);
-            return;
-        }
-        
-        int orientation = Input.getInt(
-                "Select the orientation of the ship: \n0: bottom to top\n1: left to right\n2: top to bottom\n3: right to left",
-                0, 3);
-        Pixel[] proposedPosition = shipPlacements.getPixels(ship.getAppearance().length(), pixel.getRow(), pixel.getColumn(),
-                orientation);
+    // If the spot is valid returns true else returns false.
+    public boolean checkShipPlacement(Pixel[] proposedPosition, Ship ship) {
         // Checks the ship does not go out of bounds of the board.
         if (proposedPosition.length != ship.getAppearance().length()) {
-            System.out.println("Sorry this position is invalid, make sure the entire ship is within bounds.");
-            placeShip(ship);
-            return;
+            return false;
         }
-        // Checks to make sure there are no other object that will overlap with the new ship.
+        // Checks to make sure there are no other object that will overlap with the new
+        // ship.
         for (int i = 0; i < proposedPosition.length; i++) {
             if (proposedPosition[i].getValue() != shipPlacements.getBlankPixel()) {
-                System.out.println("Sorry, looks like there's already a ship there.");
-                placeShip(ship);
-                return;
+                return false;
             }
         }
-        this.getShipPlacements().setObject(ship.getAppearance(), pixel.getRow(), pixel.getColumn(), orientation);
-
+        return true;
     }
-
-
-
-
 
 }
