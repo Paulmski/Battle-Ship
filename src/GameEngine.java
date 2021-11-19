@@ -106,21 +106,7 @@ public class GameEngine {
             // Add All 5 Battle ships
             this.getMainBoard().drawBoard();
             battleBoard.addBoard(player1.getShipPlacements(), 0, 0);
-            player1.placeShip(new Ship("Aircraft Carrier", "^^^^^"));
-            mainBoard.drawBoard();
-
-            player1.placeShip(new Ship("Battleship", "^^^^"));
-            this.getMainBoard().drawBoard();
-
-            player1.placeShip(new Ship("Cruiser", "^^^"));
-            this.getMainBoard().drawBoard();
-
-            player1.placeShip(new Ship("Submarine", "^^^"));
-            this.getMainBoard().drawBoard();
-
-            player1.placeShip(new Ship("Destroyer", "^^"));
-            this.getMainBoard().drawBoard();
-            sleep(5000);
+           
             battleBoard.resetBoard();
             this.getMainBoard().drawBoard();
  
@@ -132,6 +118,32 @@ public class GameEngine {
     }
 
     
+    public void playerPlaceShips(Player player) {
+        player.placeShip(new Ship("Aircraft Carrier", "^^^^^"));
+        mainBoard.drawBoard();
+
+        player.placeShip(new Ship("Battleship", "^^^^"));
+        this.getMainBoard().drawBoard();
+
+        player.placeShip(new Ship("Cruiser", "^^^"));
+        this.getMainBoard().drawBoard();
+
+        player.placeShip(new Ship("Submarine", "^^^"));
+        this.getMainBoard().drawBoard();
+
+        player.placeShip(new Ship("Destroyer", "^^"));
+        this.getMainBoard().drawBoard();
+        sleep(5000);
+    }
+
+    public void cpuPlaceShips(Player cpu) {
+        
+    }
+
+
+
+
+
 
     // A convience method to allow time to show information to user. Time is in milliseconds 1 second = 1000.
     public void sleep(int time) {
