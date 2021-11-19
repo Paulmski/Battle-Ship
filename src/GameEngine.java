@@ -95,7 +95,6 @@ public class GameEngine {
             // CPU / player 2
             Player cpu = new Player("CPU", 10, 10, 5);
             // Clear board
-            Board.drawBlank();
             player1.setName(Input.getString("What's your name?"));
             // A title bar to display messages.
             Board titleBar = new Board(mainBoard.getWidth(), 1, ' ');
@@ -103,10 +102,26 @@ public class GameEngine {
             this.getMainBoard().addBoard(titleBar, 0, 0);
             // Welcome the player
             titleBar.centerString("Welcome " + player1.getName(), 0);
-            Board.drawBlank();
+
+            // Add All 5 Battle ships
             this.getMainBoard().drawBoard();
-            placeShip(player1, new Ship("Tanker", "^^^^^"), battleBoard);
-            Board.drawBlank();
+            battleBoard.addBoard(player1.getShipPlacements(), 0, 0);
+            player1.placeShip(new Ship("Aircraft Carrier", "^^^^^"));
+            mainBoard.drawBoard();
+
+            player1.placeShip(new Ship("Battleship", "^^^^"));
+            this.getMainBoard().drawBoard();
+
+            player1.placeShip(new Ship("Cruiser", "^^^"));
+            this.getMainBoard().drawBoard();
+
+            player1.placeShip(new Ship("Submarine", "^^^"));
+            this.getMainBoard().drawBoard();
+
+            player1.placeShip(new Ship("Destroyer", "^^"));
+            this.getMainBoard().drawBoard();
+            sleep(5000);
+            battleBoard.resetBoard();
             this.getMainBoard().drawBoard();
  
 
@@ -116,39 +131,21 @@ public class GameEngine {
         }
     }
 
-    public void placeShip(Player player, Ship ship, Board board) {
-        Pixel pixel = Input.getPixel("Where do you want to place your ship?", 0, 9, 0, 9);
+    
 
-        // Check there are no ships already placed at that pixel.
-        if (board.getPixel(pixel.getRow(), pixel.getColumn()) != board.getBlankPixel()) {
-            System.out.println("Sorry, looks like there's already a ship there!!!!!");
-            placeShip(player, ship, board);
-            return;
+    // A convience method to allow time to show information to user. Time is in milliseconds 1 second = 1000.
+    public void sleep(int time) {
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
         }
-        Board.drawBlank();
-        this.getMainBoard().drawBoard();
-        int orientation = Input.getInt(
-                "Select the orientation of the ship: \n0: bottom to top\n1: left to right\n2: top to bottom\n3: right to left",
-                0, 3);
-        Pixel[] proposedPosition = board.getPixels(ship.getAppearance().length(), pixel.getRow(), pixel.getColumn(),
-                orientation);
-        // Checks the ship does not go out of bounds of the board.
-        if (proposedPosition.length != ship.getAppearance().length()) {
-            System.out.println("Sorry this position is invalid, make sure the entire ship is within bounds.");
-            placeShip(player, ship, board);
-            return;
-        }
-        // Checks to make sure there are no other object that will overlap with the new ship.
-        for (int i = 0; i < proposedPosition.length; i++) {
-            if (proposedPosition[i].getValue() != board.getBlankPixel()) {
-                System.out.println("Sorry, looks like there's already a ship there.");
-                placeShip(player,ship,board);
-                return;
-            }
-        }
-
-        board.setObject(ship.getAppearance(), pixel.getRow(), pixel.getColumn(), orientation);
 
     }
+
+
+
+
+
+
 
 }
