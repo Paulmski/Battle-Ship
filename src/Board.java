@@ -17,17 +17,18 @@ public class Board {
     private char[][] board;
     // The default pixel value if no other value has been assigned.
     private char blankPixel;
-    /* Due to the exponential work of managing multiple objects and continually redrawing them,
-    Ships or Boards can be added with the addObject() method, meaning the next time this board
-    is redrawn it will redraw the values held in the subObjects array. Subobject positioning is
-    held in the subObjectPositions array.
-    */
+    /*
+     * Due to the exponential work of managing multiple objects and continually
+     * redrawing them, Ships or Boards can be added with the addObject() method,
+     * meaning the next time this board is redrawn it will redraw the values held in
+     * the subObjects array. Subobject positioning is held in the subObjectPositions
+     * array.
+     */
     private Board[] subBoards = new Board[10];
-   
-    // Each element contains the row, column, and orientation of the same indexed subBoard.
+
+    // Each element contains the row, column, and orientation of the same indexed
+    // subBoard.
     private int[][] subBoardPositions = new int[10][2];
-
-
 
     // Constructors
     Board(int width, int height, char blankPixel) {
@@ -35,13 +36,14 @@ public class Board {
         this.setHeight(height);
         this.setBlankPixel(blankPixel);
         this.setBoard(new char[height][width]);
-  
+
     }
 
     // *********** Setter and Getter methods ***********
     public int getWidth() {
         return this.width;
     }
+
     // Board can not dynamically change width
     private void setWidth(int width) {
         this.width = width;
@@ -50,6 +52,7 @@ public class Board {
     public int getHeight() {
         return this.height;
     }
+
     // Board can not dynamically change height
     private void setHeight(int height) {
         this.height = height;
@@ -66,15 +69,6 @@ public class Board {
     public void setBlankPixel(char blankPixel) {
         this.blankPixel = blankPixel;
     }
-
-
-
-
-
-
-
-
-
 
     // TODO: add description
     public void setBoard() {
@@ -126,10 +120,10 @@ public class Board {
 
     // Get the value of a specific pixel (Character)
     public char getPixel(int row, int column) {
-        return this.board[row][column];
+        return this.getBoard()[row][column];
     }
 
-    //TODO: Fix formatting of documentation.
+    // TODO: Fix formatting of documentation.
     /*
      * string: A string of arbitrary size, but it will be cut off if it exceeds the
      * board space. row: The row which the string should be drawn in. column: The
@@ -191,36 +185,42 @@ public class Board {
         Pixel[] pixels = new Pixel[length];
         for (int i = 0; i < length; i++) {
             pixels[i] = new Pixel();
-            switch (orientation) {
-            // bottom to top
-            case 0:
-                pixels[i].setValue(this.getBoard()[row - i][column]);
-                pixels[i].setRow(row - i);
-                pixels[i].setColumn(column);
-                break;
-            // left to right
-            case 1:
-                pixels[i].setValue(this.getBoard()[row][column + i]);
-                pixels[i].setRow(row);
-                pixels[i].setColumn(column + i);
-                break;
-            // top to bottom
-            case 2:
-                pixels[i].setValue(this.getBoard()[row+ i][column]);
-                pixels[i].setRow(row+i);
-                pixels[i].setColumn(column);
-                break;
-            // right to left
-            case 3:
-            pixels[i].setValue(this.getBoard()[row][column + i]);
-            pixels[i].setRow(row);
-            pixels[i].setColumn(column - i);
-                break;
+
+            try {
+                switch (orientation) {
+                // bottom to top
+                case 0:
+                    pixels[i].setValue(this.getBoard()[row - i][column]);
+                    pixels[i].setRow(row - i);
+                    pixels[i].setColumn(column);
+                    break;
+                // left to right
+                case 1:
+                    pixels[i].setValue(this.getBoard()[row][column + i]);
+                    pixels[i].setRow(row);
+                    pixels[i].setColumn(column + i);
+                    break;
+                // top to bottom
+                case 2:
+                    pixels[i].setValue(this.getBoard()[row + i][column]);
+                    pixels[i].setRow(row + i);
+                    pixels[i].setColumn(column);
+                    break;
+                // right to left
+                case 3:
+                    pixels[i].setValue(this.getBoard()[row][column + i]);
+                    pixels[i].setRow(row);
+                    pixels[i].setColumn(column - i);
+                    break;
+                }
+            } catch (IndexOutOfBoundsException e) {
+                return pixels;
             }
         }
+
         return pixels;
     }
-    
+
     public void setObject(char[] characters, int row, int column, int orientation) {
 
         for (int i = 0; i < characters.length; i++) {
@@ -256,8 +256,8 @@ public class Board {
 
     }
 
-    
 
+   
 
     // The implementation of drawing a 2d is slightly different than the other two
     // implementations.
@@ -275,12 +275,14 @@ public class Board {
         }
 
     }
-    // A convenience function to center the string in any given row within the board.
+
+    // A convenience function to center the string in any given row within the
+    // board.
     public void centerString(String string, int row) {
-       int start = (this.getWidth() / 2) - (string.length()/2);
-       System.out.println(start);
+        int start = (this.getWidth() / 2) - (string.length() / 2);
+        System.out.println(start);
         for (int i = 0; i < string.length(); i++) {
-            this.setPixel(string.charAt(i), row, start+i);
+            this.setPixel(string.charAt(i), row, start + i);
         }
     }
 
@@ -291,25 +293,27 @@ public class Board {
         for (int i = 0; i < this.subBoards.length; i++) {
             System.out.println(this.subBoards[i]);
             if (this.subBoards[i] != null) {
-            this.setObject(this.subBoards[i].getBoard(), this.subBoardPositions[i][0], this.subBoardPositions[i][1]);
+                this.setObject(this.subBoards[i].getBoard(), this.subBoardPositions[i][0],
+                        this.subBoardPositions[i][1]);
             }
         }
-        
+
         for (int i = 0; i < this.getBoard().length; i++) {
             for (int j = 0; j < this.getBoard()[i].length; j++) {
                 System.out.print(this.getBoard()[i][j] + " ");
             }
             System.out.print('\n');
         }
-        
+
     }
 
-    /* This adds the board to the subObjects array, meaning the next time the drawBoard method is called
-    this board will be redrawn with the board.
-    */
+    /*
+     * This adds the board to the subObjects array, meaning the next time the
+     * drawBoard method is called this board will be redrawn with the board.
+     */
     public void addBoard(Board board, int row, int column) {
         for (int i = 0; i < this.subBoards.length; i++) {
-            if (this.subBoards[i]  == null) {
+            if (this.subBoards[i] == null) {
                 this.subBoards[i] = board;
                 this.subBoardPositions[i][0] = row;
                 this.subBoardPositions[i][1] = column;
@@ -327,8 +331,12 @@ public class Board {
         }
     }
 
-
-  
-
+    // A more harsh version of of clearBoard which wipes all pixels to the blank pixel and removes all subBoards.
+    public void resetBoard() {
+        this.clearBoard();
+        for (int i = 0; i < subBoards.length; i++) {
+            subBoards[i] = null;
+        }
+    }
 
 }
