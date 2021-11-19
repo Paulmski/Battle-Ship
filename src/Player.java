@@ -92,17 +92,16 @@ public class Player {
         Pixel pixel = Input.getPixel("Where do you want to place your ship? (It's " + ship.getAppearance().length() + " tiles long)", 0, 9, 0, 9);
 
         // Check there are no ships already placed at that pixel.
-        if (guesses.getPixel(pixel.getRow(), pixel.getColumn()) != guesses.getBlankPixel()) {
+        if (shipPlacements.getPixel(pixel.getRow(), pixel.getColumn()) != shipPlacements.getBlankPixel()) {
             System.out.println("Sorry, looks like there's already a ship there!!!!!");
             placeShip(ship);
             return;
         }
-        Board.drawBlank();
         
         int orientation = Input.getInt(
                 "Select the orientation of the ship: \n0: bottom to top\n1: left to right\n2: top to bottom\n3: right to left",
                 0, 3);
-        Pixel[] proposedPosition = guesses.getPixels(ship.getAppearance().length(), pixel.getRow(), pixel.getColumn(),
+        Pixel[] proposedPosition = shipPlacements.getPixels(ship.getAppearance().length(), pixel.getRow(), pixel.getColumn(),
                 orientation);
         // Checks the ship does not go out of bounds of the board.
         if (proposedPosition.length != ship.getAppearance().length()) {
@@ -112,13 +111,12 @@ public class Player {
         }
         // Checks to make sure there are no other object that will overlap with the new ship.
         for (int i = 0; i < proposedPosition.length; i++) {
-            if (proposedPosition[i].getValue() != guesses.getBlankPixel()) {
+            if (proposedPosition[i].getValue() != shipPlacements.getBlankPixel()) {
                 System.out.println("Sorry, looks like there's already a ship there.");
                 placeShip(ship);
                 return;
             }
         }
-
         this.getShipPlacements().setObject(ship.getAppearance(), pixel.getRow(), pixel.getColumn(), orientation);
 
     }
