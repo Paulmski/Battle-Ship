@@ -186,6 +186,41 @@ public class Board {
         return pixels;
     }
 
+    // Used to check the values of pixels without overwriting them.
+    public int[][] getPixels(int length, int row, int column, int orientation) {
+        int[][] pixels = new int[length][2];
+        for (int i = 0; i < length; i++) {
+            switch (orientation) {
+            // bottom to top
+            case 0:
+                pixels[i][0] = row - i;
+                pixels[i][1] = column;
+                break;
+            // left to right
+            case 1:
+                pixels[i][0] = row;
+                pixels[i][1] = column + i;
+                break;
+            // top to bottom
+            case 2:
+                pixels[i][0] = row + i;
+                pixels[i][1] = column;
+                break;
+            // right to left
+            case 3:
+                pixels[i][0] = row;
+                pixels[i][1] = column - i;
+                break;
+            // Default: left to right
+            default:
+                pixels[i][0] = row + i;
+                pixels[i][1] = column;
+                this.setObject(string, row, column + i, 1);
+            }
+        }
+        return pixels;
+    }
+    
     public void setObject(char[] characters, int row, int column, int orientation) {
 
         for (int i = 0; i < characters.length; i++) {
