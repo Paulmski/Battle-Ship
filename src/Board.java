@@ -121,7 +121,7 @@ public class Board {
            /* If the pixel it is out of bounds it will simply not be drawn to the board. 
            Perhaps a log method could be used to document this out of bounds error, 
            but for the current scope of our classes learning catching this error
-           and returning is satisfactory.
+           and returning nothing is satisfactory.
            */
         }
     }
