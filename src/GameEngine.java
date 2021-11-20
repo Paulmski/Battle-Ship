@@ -13,9 +13,6 @@ import java.util.Random;
 public class GameEngine {
     // A bool to tell the Main Class if it should continue drawing frames.
     private boolean running = true;
-    // 0: Single Player mode
-    // 1: Two player mode
-    private int gameMode = 0;
 
     private Board mainBoard;
 
@@ -58,24 +55,14 @@ public class GameEngine {
         this.getMainBoard().setObject("Welcome to Battle Ship!", 0, 12, 1);
         this.getMainBoard().centerString("Please select from the menu below", 3);
         this.getMainBoard().setObject("1:  Single Player Mode", 8, 10, 1);
-        this.getMainBoard().setObject("2:  Two Player Mode", 10, 10, 1);
-        this.getMainBoard().setObject("3:  Quit Game", 12, 10, 1);
+        this.getMainBoard().setObject("3:  Quit Game", 10, 10, 1);
         this.getMainBoard().drawBoard();
-        int input = Input.getInt("Enter 1, 2, or 3: ", 1, 3);
-        switch (input) {
-        // Selected single player mode
-        case 1:
-            gameMode = 0;
-            break;
-        // Selected two player mode
-        case 2:
-            gameMode = 1;
-            break;
-        // Quit the game
-        case 3:
+        int input = Input.getInt("Enter 1 or 2: ", 1, 2);
+        if (input == 2) {
             this.setRunning(false);
             return;
         }
+        
 
     }
 
@@ -96,8 +83,11 @@ public class GameEngine {
 
         this.getMainBoard().drawBoard();
 
-        // Single player mode
-        if (gameMode == 0) {
+        // A title bar to display messages.
+        Board titleBar = new Board(mainBoard.getWidth(), 1, ' ');
+        // Add the titleBar as a subBoard to the mainBoard.
+        this.getMainBoard().addBoard(titleBar, 0, 0);
+
 
             // Player 1
             Human player1 = new Human("", 10, 10, 5);
@@ -106,10 +96,7 @@ public class GameEngine {
             // Get the users name to customize the UI
             player1.setName(Input.getString("What's your name?"));
 
-            // A title bar to display messages.
-            Board titleBar = new Board(mainBoard.getWidth(), 1, ' ');
-            // Add the titleBar as a subBoard to the mainBoard.
-            this.getMainBoard().addBoard(titleBar, 0, 0);
+            
 
             // Welcome the player
             titleBar.centerString("Welcome " + player1.getName(), 0);
@@ -184,7 +171,8 @@ public class GameEngine {
                 sleep(3000);
             }
 
-        } else if (gameMode == 1) {
+        
+
 
         }
     }
