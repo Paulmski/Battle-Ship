@@ -32,13 +32,7 @@ public class GameEngine {
         this.running = running;
     }
 
-    public int getGameMode() {
-        return this.gameMode;
-    }
-
-    public void setGameMode(int gameMode) {
-        this.gameMode = gameMode;
-    }
+   
 
     public Board getMainBoard() {
         return this.mainBoard;
@@ -175,7 +169,7 @@ public class GameEngine {
 
 
         }
-    }
+    
 
     // A convience method to allow time to show information to user. Time is in
     // milliseconds 1 second = 1000.
