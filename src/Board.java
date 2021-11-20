@@ -217,7 +217,7 @@ public class Board {
                     break;
                 // right to left
                 case 3:
-                    pixels[i].setValue(this.getBoard()[row][column + i]);
+                    pixels[i].setValue(this.getBoard()[row][column - i]);
                     pixels[i].setRow(row);
                     pixels[i].setColumn(column - i);
                     break;
