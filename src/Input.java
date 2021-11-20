@@ -30,7 +30,7 @@ public class Input {
         if (input.length() == 1) {
             // Indexing of string is safe because it is known that the string is exactly of
             // length 1
-            int row = ((int) input.charAt(0)) - 65;
+            int row = ((int) Character.toUpperCase(input.charAt(0))) - 65;
             if (row >= lowerRow && row <= upperRow) {
                 pixel.setRow(row);
             } else {

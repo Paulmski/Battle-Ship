@@ -27,6 +27,7 @@
          this.setName(name);
          this.setAppearance( appearance );
          this.setHealth(appearance.length());
+         this.setPosition(new int[appearance.length()][2]);
 
      }
 
@@ -62,6 +63,7 @@
 
     public void setHealth(int health) {
         this.health = health;
+
     }
      
  }
