@@ -94,10 +94,11 @@ public class GameEngine {
 
             // Welcome the player
             titleBar.centerString("Welcome " + player1.getName(), 0);
+            this.getMainBoard().drawBoard();
 
             // The topBoard is the players guess and the bottomBoard is their ships.
             bottomBoard.addBoard(player1.getShipPlacements(), 0, 0);
-            topBoard.addBoard(cpu.getShipPlacements(), 0, 0);
+            topBoard.addBoard(player1.getGuesses(), 0, 0);
             // Add All 5 Battle ships
             Ship[] playerShips = new Ship[5];
             playerShips[0] = new Ship("Carrier", "^^^^^");
@@ -145,6 +146,7 @@ public class GameEngine {
             }
 
             mainBoard.resetBoard();
+            mainBoard.addBoard(titleBar, 0, 0);
             titleBar.resetBoard();
             if (player1.getHealth() != 0) {
                 titleBar.centerString("Congrats " + player1.getName() + " you won!", 0);
